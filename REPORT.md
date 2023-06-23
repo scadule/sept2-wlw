@@ -41,6 +41,10 @@
 
 ### 3.用例图设计
 ### 4.数据库设计
+主要是对加载和保存游戏时,需要将文件存入数据库,我们只存储文件路径在数据库中,而不去存储整个的场景字符流,数据表设置如下。
+
+![avatar](figure/fig_16.jpg)
+
 ## 三、技术路线
 ### 1.开发技术与框架
 #### (1)主要技术和工具
@@ -88,7 +92,12 @@ LogicFacade --> Save
 LogicFacade --> Load
 ```
 ## 五、github开发过程
-### 1.小组任务分工
+### 1.项目开发时间划分
+* **第一阶段**:确定游戏各个模块与主要功能,任务分工,规划整个开发计划
+* **第二阶段**:小组成员拉取分支独立开发,编写前端代码,后端开始接口功能的编写,action配置编写
+* **第三阶段**:各个模块完成之后进行代码审查与单元测试,提交后合并到dev总分支
+* **第四阶段**:代码审查与测试无错误并且无冲突后,发布可执行版本软件
+### 2.小组任务分工
 我们具体任务分工如下:
 * 武奥妮:小组组长,负责设计Player类及其操作,以及游戏的保存与加载(通过数据库实现),负责代码评审和集成部署操作
 * 钱玉力:负责使用JavaFX构建游戏所需前端GUI界面,完成前端部分的测试。
@@ -99,7 +108,7 @@ LogicFacade --> Load
 ![avatar](figure/fig_4.jpg)
 
 同时明确开发时间节点,在指定时间节点核实任务完成情况。
-### 2.分支模型设计
+### 3.分支模型设计
 我们参考了真实开发中的分支模型的结构,设计本项目的分支模型包括以下几个部分:
 * **master**:主分支,用于存放经过测试,已经完全稳定的代码,在更新到master分支时,需要使用git打上tag,说明产品有新版本发布。
 * **develop**:开发分支,一开始从master分支中分离,用于存放基本稳定的代码。所有开发好的功能需要在develop分支进行汇总,develop代码经过不断测试,才可以合并到master分支中,并用于发布一个新版本。
@@ -112,10 +121,10 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_6.jpg)
 
-### 3.功能开发过程
+### 4.功能开发过程
 在确定好小组任务,划分小组分支后,每个成员有一个属于自己的功能开发分支,成员需要fork小组仓库到本地仓库,在本地仓库上进行开发后,再通过pull request集成到自己的功能开发分支下。通过下图可以看到所有小组成员都将小组仓库fork到了属于自己的仓库。
 
-![avatar](figure/fig_6.jpg)
+![avatar](figure/fig_7.jpg)
 
 在每次完成一个较为整体的功能的开发时候,小组成员先将代码提交并推送到自己fork的仓库下,再通过pull request的方式同步到小组仓库自己分支下。从下图可以看到小组pull request的次数。
 
@@ -125,7 +134,7 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_9.jpg)
 
-### 4.代码的自动集成与自动审查
+### 5.代码的自动集成与自动审查
 在功能分支开发完毕后,需要将其集成到develop分支,但是不能简单的通过pull request进行集成,在集成前必须要检查代码是否冲突以及代码格式问题,在这里我们使用github的action进行代码格式的自动化审查和集成,审查通过的分支自动合并到develop分支上。
 在分支合并时难免会出现分支冲突问题,我们利用自动审查发现冲突问题并手动解决冲突。
 
@@ -142,7 +151,7 @@ LogicFacade --> Load
 对于审查通过的,则会被自动集成到的develop分支。
 
 ![avatar](figure/fig_12.jpg)
-### 5.代码的持续部署和自动化打包
+### 6.代码的持续部署和自动化打包
 在持续部署的流程中,当开发团队完成对软件应用程序的更改后,这些更改会经过一系列自动化的测试、构建和部署步骤,最终将更新的应用程序部署到生产环境中。这个过程是自动的,无需人工干预,因此可以实现快速、可靠的交付。
 
 而在上文中我们已经介绍了代码自动化测试也就是代码评审的实现,在自动化测试之后,需要自动化构建Maven项目,生成可直接运行的应用程序环境jar包,同样采用github的action功能来构建工作流。
@@ -153,7 +162,7 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_14.jpg)
 
-### 6.稳定版本的发布
+### 7.稳定版本的发布
 在进行完上述流程后,再次通过结对人工评审,将最终的开发项目合并到master分支上,并标记tag为version-1.0.至此完整项目的开发
 
 【图1】develop分支合并到master分支的图
@@ -162,9 +171,14 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_15.jpg)
 
-### 7.小组工作情况总结
+### 8.小组工作情况总结
 通过github的insights可以直观看到小组的工作情况。
 
+![avatar](figure/fig_48.png)
+
+![avatar](figure/fig_49.png)
+
+![avatar](figure/fig_50.png)
 ## 六、主要功能实现细节
 ### 1、样例代码功能简介
 样例工程代码world-of-zuul是一个基于字符界面的探险游戏,只具备一个基本的功能框架,需要你对其进行完善和扩充。原版的world-of-zuul是由 Will Crowther在20世纪70年代开发、并经过 Don Woods扩充的一个探险游戏,包括要在一个复杂的洞穴系统中找到出路、寻找隐藏的财宝、使用暗语和其他一些神秘工具,最终的目的是获得高分。
@@ -196,60 +210,85 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_22.png)
 
-### (2)玩家和ITEM的补充
+#### (2)玩家和ITEM的补充
 对于玩家,增加生命值,血氧等功能
+
 ![avatar](figure/fig_23.png)
 同时增加更为丰富的ITEM,并使用文件存储,在每次加载游戏初始化地图时导入
+
 ![avatar](figure/fig_24.png)
-(3)增加NPC类
+#### (3)增加NPC类
 我们通过增加NPC类,来提高游戏的趣味性,其中包括monsterNPC,用于与player进行对抗。
+
 ![avatar](figure/fig_25.png)
-(4)通过数据库实现游戏的保存与加载
+#### (4)通过数据库实现游戏的保存与加载
 通过保存游戏文件的存放路径和玩家名,来实现保存游戏和加载游戏。
+
 ![avatar](figure/fig_26.png)
 加载游戏的Dao层实现
+
 ![avatar](figure/fig_27.png)
 保存游戏的Dao层实现
+
 ![avatar](figure/fig_28.png)
-(5)GUI界面的实现
+#### (5)GUI界面的实现
 主要通过.fxml和其controller实现
+
 ![avatar](figure/fig_29.png)
+
 ![avatar](figure/fig_30.png)
 ## 六、单元测试
 1、前端部分测试
+
 ![avatar](figure/fig_31.png)
 2、后端部分测试
+
 ![avatar](figure/fig_32.png)
 
 ## 七、结果展示
 输入玩家昵称点击start按钮进入游戏
+
 ![avatar](figure/fig_33.png)
 进入游戏点击North等方向按键控制玩家前进方向,进入某个房间后首先点击search查看Room inventory,然后选中房间清单中的物品进行操作
+
 ![avatar](figure/fig_34.png)
 Use房间中的oxygen补充玩家的air值,游戏界面左下方会对玩家的操作与游戏状态及时反馈
+
 ![avatar](figure/fig_35.png)
 Armory房间中获取table上notes的密码28374和武器rifle,有效线索能够帮助玩家进行游戏,该密码即为bookcase后暗门的密码
+
 ![avatar](figure/fig_36.png)
 keyRoom房间中使用获取到的rifle去attack房间中的NPC monster
+
 ![avatar](figure/fig_37.png)
 击败monster后掉落线索key 
+
 ![avatar](figure/fig_38.png)
 Airlock房间中也能够为玩家补充oxygen
+
 ![avatar](figure/fig_39.png)
 Hallway中东侧为lockkeddoor,进入房间需要回答NPC的问题,“What is 2+2?”,在上方文本框输入4点击submit 
+
 ![avatar](figure/fig_40.png)
 回答第二个问题“What do we need to do?”,输入survive点击submit,成功开门。与房间中的NPC birtney对话 
+
 ![avatar](figure/fig_41.png)
 Search该房间中的物品,使用key触发radio,成功向外界发送呼救消息,弹出游戏成功的界面,点击Exit Game退出游戏
+
 ![avatar](figure/fig_42.png)
 玩家在游戏过程中IDEA的控制台也会即时推送玩家的游戏状态
+
 ![avatar](figure/fig_43.png)
 玩家可以保存游戏,点击保存游戏,显示被保存
+
 ![avatar](figure/fig_44.png)
 数据库和文件都有记录
+
 ![avatar](figure/fig_45.png)
+
 ![avatar](figure/fig_46.png)
 再次进入界面输入玩家名打开游戏,可以回到上次退出的界面
+
 ![avatar](figure/fig_47.png)
 ## 实验总结
 
