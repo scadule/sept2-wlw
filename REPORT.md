@@ -150,10 +150,12 @@ LogicFacade --> Load
 ![avatar](figure/fig_17.jpg)
 
 对于审查通过的,则会被自动集成到的develop分支。
+
 ![avatar](figure/fig_11_1.png)
 
 
 ![avatar](figure/fig_12.jpg)
+
 ### 6.代码的持续部署和自动化打包
 在持续部署的流程中,当开发团队完成对软件应用程序的更改后,这些更改会经过一系列自动化的测试、构建和部署步骤,最终将更新的应用程序部署到生产环境中。这个过程是自动的,无需人工干预,因此可以实现快速、可靠的交付。
 
@@ -162,6 +164,7 @@ LogicFacade --> Load
 ![avatar](figure/fig_13.jpg)
 
 同时其对于出错的情况也会给出信息提示
+
 ![avatar](figure/fig_52.png)
 
 我们设置在每次develop更新时和提交到master分支时,都会进行自动化构建打包,在action下面可以看到工作流工作情况并且下载打包的jar包。
@@ -223,59 +226,106 @@ tag标签,版本标签是对代码库的特定版本进行有意义的标识,通
 
 ### (2)玩家和ITEM的补充
 对于玩家,增加生命值,血氧等功能
+
 ![avatar](figure/fig_23.png)
+
 同时增加更为丰富的ITEM,并使用文件存储,在每次加载游戏初始化地图时导入
+
 ![avatar](figure/fig_24.png)
+
 (3)增加NPC类
 我们通过增加NPC类,来提高游戏的趣味性,其中包括monsterNPC,用于与player进行对抗。
+
 ![avatar](figure/fig_25.png)
+
 (4)通过数据库实现游戏的保存与加载
 通过保存游戏文件的存放路径和玩家名,来实现保存游戏和加载游戏。
+
 ![avatar](figure/fig_26.png)
+
 加载游戏的Dao层实现
+
 ![avatar](figure/fig_27.png)
+
 保存游戏的Dao层实现
+
 ![avatar](figure/fig_28.png)
+
 (5)GUI界面的实现
 主要通过.fxml和其controller实现
+
 ![avatar](figure/fig_29.png)
+
 ![avatar](figure/fig_30.png)
+
 ## 六、单元测试
 1、前端部分测试
+
 ![avatar](figure/fig_31.png)
+
 2、后端部分测试
+
 ![avatar](figure/fig_32.png)
 
 ## 七、结果展示
 输入玩家昵称点击start按钮进入游戏
+
 ![avatar](figure/fig_33.png)
+
 进入游戏点击North等方向按键控制玩家前进方向,进入某个房间后首先点击search查看Room inventory,然后选中房间清单中的物品进行操作
+
 ![avatar](figure/fig_34.png)
+
 Use房间中的oxygen补充玩家的air值,游戏界面左下方会对玩家的操作与游戏状态及时反馈
+
 ![avatar](figure/fig_35.png)
+
 Armory房间中获取table上notes的密码28374和武器rifle,有效线索能够帮助玩家进行游戏,该密码即为bookcase后暗门的密码
+
 ![avatar](figure/fig_36.png)
+
 keyRoom房间中使用获取到的rifle去attack房间中的NPC monster
+
 ![avatar](figure/fig_37.png)
+
 击败monster后掉落线索key 
+
 ![avatar](figure/fig_38.png)
+
 Airlock房间中也能够为玩家补充oxygen
+
 ![avatar](figure/fig_39.png)
+
 Hallway中东侧为lockkeddoor,进入房间需要回答NPC的问题,“What is 2+2?”,在上方文本框输入4点击submit 
+
 ![avatar](figure/fig_40.png)
+
 回答第二个问题“What do we need to do?”,输入survive点击submit,成功开门。与房间中的NPC birtney对话 
+
 ![avatar](figure/fig_41.png)
+
 Search该房间中的物品,使用key触发radio,成功向外界发送呼救消息,弹出游戏成功的界面,点击Exit Game退出游戏
+
 ![avatar](figure/fig_42.png)
+
 玩家在游戏过程中IDEA的控制台也会即时推送玩家的游戏状态
+
 ![avatar](figure/fig_43.png)
+
 玩家可以保存游戏,点击保存游戏,显示被保存
+
 ![avatar](figure/fig_44.png)
+
 数据库和文件都有记录
+
 ![avatar](figure/fig_45.png)
+
 ![avatar](figure/fig_46.png)
+
 再次进入界面输入玩家名打开游戏,可以回到上次退出的界面
+
 ![avatar](figure/fig_47.png)
+
 ## 实验总结
 本次软件工程实践课的World of zuul项目,我们小组采用了 JavaFX、MVC 架构和 Maven 工具来开发,使用 Github 平台进行小组协作。前端部分我们选择JavaFX作为GUI框架,它与传统的Swing相比,提供了许多可复用的UI控件和更优良的性能,通过使用FXML和Scene Builder工具来设计用户界面,使用控制器类来分离显示层和应用程序逻辑,也使得我们的代码结构更加清晰,易于维护,让我们的开发过程更加高效。后端部分使用MVC 架构让代码具有良好的可扩展性,通过将应用程序逻辑和界面显示分离,使得开发过程中能够更容易进行代码模块化和重用。最后利用 Maven 工具可以帮助我们更好地管理项目库、软件依赖和构建测试等工作,大大提高了项目开发的效率和质量。
 
