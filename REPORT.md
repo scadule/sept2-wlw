@@ -42,9 +42,7 @@
 ### 3.用例图设计
 ### 4.数据库设计
 主要是对加载和保存游戏时,需要将文件存入数据库,我们只存储文件路径在数据库中,而不去存储整个的场景字符流,数据表设置如下。
-
 ![avatar](figure/fig_16.jpg)
-
 ## 三、技术路线
 ### 1.开发技术与框架
 #### (1)主要技术和工具
@@ -144,11 +142,15 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_10.jpg)
 
-在我们对功能分支集成到的develop分支时,其就会开始代码的自动化审查,对于审查不通过的不会进行集成。
+在我们对功能分支集成到的develop分支时,其就会开始代码的自动化审查,对于审查不通过的不会进行集成,同时给出错误信息。
 
-![avatar](figure/fig_11.png)
+![avatar](figure/fig_51.png)
+
+![avatar](figure/fig_17.jpg)
 
 对于审查通过的,则会被自动集成到的develop分支。
+![avatar](figure/fig_11.png)
+
 
 ![avatar](figure/fig_12.jpg)
 ### 6.代码的持续部署和自动化打包
@@ -158,16 +160,24 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_13.jpg)
 
+同时其对于出错的情况也会给出信息提示
+![avatar](figure/fig_52.png)
+
 我们设置在每次develop更新时和提交到master分支时,都会进行自动化构建打包,在action下面可以看到工作流工作情况并且下载打包的jar包。
 
 ![avatar](figure/fig_14.jpg)
 
 ### 7.稳定版本的发布
-在进行完上述流程后,再次通过结对人工评审,将最终的开发项目合并到master分支上,并标记tag为version-1.0.至此完整项目的开发
+在进行完上述流程后,再次通过结对人工评审,将最终的开发项目合并到master分支上
 
-【图1】develop分支合并到master分支的图
+![avatar](figure/fig_53.png)
 
-整个开发过程中的部分分支结构变化如图所示
+同时我们利用github的release给稳定版本的发布提交
+tag标签,版本标签是对代码库的特定版本进行有意义的标识,通常用于软件发布或重要里程碑。
+
+![avatar](figure/fig_54.png)
+
+至此一个软件的初步开发过程结束。整个开发过程中的部分分支结构变化如图所示
 
 ![avatar](figure/fig_15.jpg)
 
@@ -210,85 +220,60 @@ LogicFacade --> Load
 
 ![avatar](figure/fig_22.png)
 
-#### (2)玩家和ITEM的补充
+### (2)玩家和ITEM的补充
 对于玩家,增加生命值,血氧等功能
-
 ![avatar](figure/fig_23.png)
 同时增加更为丰富的ITEM,并使用文件存储,在每次加载游戏初始化地图时导入
-
 ![avatar](figure/fig_24.png)
-#### (3)增加NPC类
+(3)增加NPC类
 我们通过增加NPC类,来提高游戏的趣味性,其中包括monsterNPC,用于与player进行对抗。
-
 ![avatar](figure/fig_25.png)
-#### (4)通过数据库实现游戏的保存与加载
+(4)通过数据库实现游戏的保存与加载
 通过保存游戏文件的存放路径和玩家名,来实现保存游戏和加载游戏。
-
 ![avatar](figure/fig_26.png)
 加载游戏的Dao层实现
-
 ![avatar](figure/fig_27.png)
 保存游戏的Dao层实现
-
 ![avatar](figure/fig_28.png)
-#### (5)GUI界面的实现
+(5)GUI界面的实现
 主要通过.fxml和其controller实现
-
 ![avatar](figure/fig_29.png)
-
 ![avatar](figure/fig_30.png)
 ## 六、单元测试
 1、前端部分测试
-
 ![avatar](figure/fig_31.png)
 2、后端部分测试
-
 ![avatar](figure/fig_32.png)
 
 ## 七、结果展示
 输入玩家昵称点击start按钮进入游戏
-
 ![avatar](figure/fig_33.png)
 进入游戏点击North等方向按键控制玩家前进方向,进入某个房间后首先点击search查看Room inventory,然后选中房间清单中的物品进行操作
-
 ![avatar](figure/fig_34.png)
 Use房间中的oxygen补充玩家的air值,游戏界面左下方会对玩家的操作与游戏状态及时反馈
-
 ![avatar](figure/fig_35.png)
 Armory房间中获取table上notes的密码28374和武器rifle,有效线索能够帮助玩家进行游戏,该密码即为bookcase后暗门的密码
-
 ![avatar](figure/fig_36.png)
 keyRoom房间中使用获取到的rifle去attack房间中的NPC monster
-
 ![avatar](figure/fig_37.png)
 击败monster后掉落线索key 
-
 ![avatar](figure/fig_38.png)
 Airlock房间中也能够为玩家补充oxygen
-
 ![avatar](figure/fig_39.png)
 Hallway中东侧为lockkeddoor,进入房间需要回答NPC的问题,“What is 2+2?”,在上方文本框输入4点击submit 
-
 ![avatar](figure/fig_40.png)
 回答第二个问题“What do we need to do?”,输入survive点击submit,成功开门。与房间中的NPC birtney对话 
-
 ![avatar](figure/fig_41.png)
 Search该房间中的物品,使用key触发radio,成功向外界发送呼救消息,弹出游戏成功的界面,点击Exit Game退出游戏
-
 ![avatar](figure/fig_42.png)
 玩家在游戏过程中IDEA的控制台也会即时推送玩家的游戏状态
-
 ![avatar](figure/fig_43.png)
 玩家可以保存游戏,点击保存游戏,显示被保存
-
 ![avatar](figure/fig_44.png)
 数据库和文件都有记录
-
 ![avatar](figure/fig_45.png)
-
 ![avatar](figure/fig_46.png)
 再次进入界面输入玩家名打开游戏,可以回到上次退出的界面
-
 ![avatar](figure/fig_47.png)
 ## 实验总结
 
